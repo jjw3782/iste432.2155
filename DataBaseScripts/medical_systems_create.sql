@@ -34,9 +34,6 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`address` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-INSERT INTO `medicalsystems`.`address` VALUES ('ADR0000001', '1 Lomb Memorial Dr.', 'Rochester', 'NY', '14623');
-INSERT INTO `medicalsystems`.`address` VALUES ('ADR0000002', '504 Mt Hope Ave.', 'Rochester', 'NY', '14620');
-
 -- -----------------------------------------------------
 -- Table `medicalsystems`.`contactinfo`
 -- -----------------------------------------------------
@@ -49,9 +46,6 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`contactinfo` (
   PRIMARY KEY (`ContactID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
-INSERT INTO `medicalsystems`.`contactinfo` VALUES (1, '2192015875', 'ehf5307@g.rit.edu');
-INSERT INTO `medicalsystems`.`contactinfo` VALUES (2, '2192015875', 'ehcfitzgerald@gmail.com');
 
 -- -----------------------------------------------------
 -- Table `medicalsystems`.`insurance`
@@ -79,8 +73,6 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`insurance` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-INSERT INTO `medicalsystems`.`insurance` VALUES ('INS0000001', 'RIT Crappy Student Insurance', 'ADR0000001', '1');
-
 -- -----------------------------------------------------
 -- Table `medicalsystems`.`user`
 -- -----------------------------------------------------
@@ -93,9 +85,6 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`user` (
   PRIMARY KEY (`UserID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
-INSERT INTO `medicalsystems`.`user` VALUES ('doctor1', 'password', 'PHY');
-INSERT INTO `medicalsystems`.`user` VALUES ('patient1', 'password', 'PAT');
 
 -- -----------------------------------------------------
 -- Table `medicalsystems`.`practice`
@@ -123,8 +112,6 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`practice` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-INSERT INTO `medicalsystems`.`practice` VALUES (1, 'Test Practice', 1, 'ADR0000001');
-
 -- -----------------------------------------------------
 -- Table `medicalsystems`.`physician`
 -- -----------------------------------------------------
@@ -135,21 +122,14 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`physician` (
   `Name` VARCHAR(125) NULL DEFAULT NULL,
   `Specialty` VARCHAR(125) NULL DEFAULT NULL,
   `NewPatient` TINYINT(1) NULL DEFAULT NULL,
-  `PracticeID` INT(11) NULL DEFAULT NULL,
   `InsuranceID` VARCHAR(10) NULL DEFAULT NULL,
   `UserID` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`PhysicianID`),
   INDEX `InsuranceID_idx` (`InsuranceID` ASC),
   INDEX `UserID_idx` (`UserID` ASC),
-  INDEX `Physician_PracticeID` (`PracticeID` ASC),
   CONSTRAINT `Physician_InsuranceID`
     FOREIGN KEY (`InsuranceID`)
     REFERENCES `medicalsystems`.`insurance` (`InsuranceID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `Physician_PracticeID`
-    FOREIGN KEY (`PracticeID`)
-    REFERENCES `medicalsystems`.`pracice` (`PracticeID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Physician_UserID`
@@ -159,8 +139,6 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`physician` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
-INSERT INTO `medicalsystems`.`physician` VALUES ('PHY000000000001', 'Dr. Mal Practice', 'Mortician', 1, 1, 'INS0000001', 'doctor1');
 
 
 -- -----------------------------------------------------
@@ -208,8 +186,6 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`patient` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-INSERT INTO `medicalsystems`.`patient` VALUES ('PAT000000000001', 'patient1', 'Ted Fitzgerald', 'xxxxxxxxx', 'xxxxxxxxxx', 170, '1994-01-20', 'PHY000000000001', 'ADR0000002', 'INS0000001', 2);
-
 -- -----------------------------------------------------
 -- Table `medicalsystems`.`addresspatient`
 -- -----------------------------------------------------
@@ -232,8 +208,6 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`addresspatient` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
-INSERT INTO `medicalsystems`.`addresspatient` VALUES ('PAT000000000001', 'ADR0000002');
 
 -- -----------------------------------------------------
 -- Table `medicalsystems`.`appointment`
@@ -278,7 +252,6 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`appointment` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-INSERT INTO `medicalsystems`.`appointment` VALUES ('APT0000001', 'PAT000000000001', 'PHY000000000001', 'INS0000001', '2016-05-05', 'ADR0000001', 'Routine checkup', 'Just gonna check and make sure I am still alive', 'SCHEDULED');
 -- -----------------------------------------------------
 -- Table `medicalsystems`.`medication`
 -- -----------------------------------------------------
@@ -288,9 +261,9 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`medication` (
   `MedicationID` INT(11) NOT NULL AUTO_INCREMENT,
   `TradeName` VARCHAR(256) NOT NULL,
   `GenericName` VARCHAR(256) NOT NULL,
-  `GenericCategory` VARCHAR(100) NOT NULL,
-  `TherapeuticCategory` VARCHAR(100) NOT NULL,
-  `CounselingPoints` VARCHAR(500) NOT NULL,
+  `GenericCategory` VARCHAR(125) NOT NULL,
+  `TherapeuticCategory` VARCHAR(125) NOT NULL,
+  `CounselingPoints` TEXT NOT NULL,
   PRIMARY KEY (`MedicationID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -302,7 +275,7 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `medicalsystems`.`messages` ;
 
 CREATE TABLE IF NOT EXISTS `medicalsystems`.`messages` (
-  `MessageID` INT(11) NOT NULL,
+  `MessageID` INT(11) NOT NULL AUTO_INCREMENT,
   `PatientID` VARCHAR(15) NULL DEFAULT NULL,
   `PhysicianID` VARCHAR(15) NULL DEFAULT NULL,
   `Subject` VARCHAR(100) NULL DEFAULT NULL,
@@ -324,7 +297,6 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`messages` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
 
 -- -----------------------------------------------------
 -- Table `medicalsystems`.`patientphysician`
@@ -348,8 +320,6 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`patientphysician` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
-
 
 
 -- -----------------------------------------------------
@@ -412,7 +382,6 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`prescription` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
