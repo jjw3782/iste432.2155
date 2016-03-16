@@ -1,30 +1,15 @@
--- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
--- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema medicalsystems
--- -----------------------------------------------------
+USE `iste432a` ;
 
 -- -----------------------------------------------------
--- Schema medicalsystems
+-- Table `iste432a`.`address`
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `medicalsystems` ;
+DROP TABLE IF EXISTS `iste432a`.`address` ;
 
-CREATE SCHEMA IF NOT EXISTS `medicalsystems` DEFAULT CHARACTER SET utf8 ;
-USE `medicalsystems` ;
-
--- -----------------------------------------------------
--- Table `medicalsystems`.`address`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `medicalsystems`.`address` ;
-
-CREATE TABLE IF NOT EXISTS `medicalsystems`.`address` (
+CREATE TABLE IF NOT EXISTS `iste432a`.`address` (
   `AddressID` VARCHAR(10) NOT NULL,
   `Street` VARCHAR(30) NOT NULL,
   `City` VARCHAR(30) NOT NULL,
@@ -35,11 +20,11 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
--- Table `medicalsystems`.`contactinfo`
+-- Table `iste432a`.`contactinfo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `medicalsystems`.`contactinfo` ;
+DROP TABLE IF EXISTS `iste432a`.`contactinfo` ;
 
-CREATE TABLE IF NOT EXISTS `medicalsystems`.`contactinfo` (
+CREATE TABLE IF NOT EXISTS `iste432a`.`contactinfo` (
   `ContactID` INT(11) NOT NULL AUTO_INCREMENT,
   `Phone` CHAR(10) NULL DEFAULT NULL,
   `Email` VARCHAR(30) NULL DEFAULT NULL,
@@ -48,11 +33,11 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
--- Table `medicalsystems`.`insurance`
+-- Table `iste432a`.`insurance`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `medicalsystems`.`insurance` ;
+DROP TABLE IF EXISTS `iste432a`.`insurance` ;
 
-CREATE TABLE IF NOT EXISTS `medicalsystems`.`insurance` (
+CREATE TABLE IF NOT EXISTS `iste432a`.`insurance` (
   `InsuranceID` VARCHAR(10) NOT NULL,
   `Name` VARCHAR(30) NOT NULL,
   `AddressID` VARCHAR(10) NULL DEFAULT NULL,
@@ -62,23 +47,23 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`insurance` (
   INDEX `ContactID_idx` (`ContactID` ASC),
   CONSTRAINT `Insurance_AddressID`
     FOREIGN KEY (`AddressID`)
-    REFERENCES `medicalsystems`.`address` (`AddressID`)
+    REFERENCES `iste432a`.`address` (`AddressID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Insurance_ContactID`
     FOREIGN KEY (`ContactID`)
-    REFERENCES `medicalsystems`.`contactinfo` (`ContactID`)
+    REFERENCES `iste432a`.`contactinfo` (`ContactID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
--- Table `medicalsystems`.`user`
+-- Table `iste432a`.`user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `medicalsystems`.`user` ;
+DROP TABLE IF EXISTS `iste432a`.`user` ;
 
-CREATE TABLE IF NOT EXISTS `medicalsystems`.`user` (
+CREATE TABLE IF NOT EXISTS `iste432a`.`user` (
   `UserID` VARCHAR(50) NOT NULL,
   `Password` VARCHAR(256) NOT NULL,
   `AccountType` CHAR(3) NOT NULL,
@@ -87,11 +72,11 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
--- Table `medicalsystems`.`practice`
+-- Table `iste432a`.`practice`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `medicalsystems`.`practice` ;
+DROP TABLE IF EXISTS `iste432a`.`practice` ;
 
-CREATE TABLE IF NOT EXISTS `medicalsystems`.`practice` (
+CREATE TABLE IF NOT EXISTS `iste432a`.`practice` (
   `PracticeID` INT(11) NOT NULL,
   `Name` VARCHAR(256) NULL DEFAULT NULL,
   `ContactID` INT(11) NULL DEFAULT NULL,
@@ -101,23 +86,23 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`practice` (
   INDEX `AddressID_idx` (`AddressID` ASC),
   CONSTRAINT `AddressID`
     FOREIGN KEY (`AddressID`)
-    REFERENCES `medicalsystems`.`address` (`AddressID`)
+    REFERENCES `iste432a`.`address` (`AddressID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `ContactID`
     FOREIGN KEY (`ContactID`)
-    REFERENCES `medicalsystems`.`contactinfo` (`ContactID`)
+    REFERENCES `iste432a`.`contactinfo` (`ContactID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
--- Table `medicalsystems`.`physician`
+-- Table `iste432a`.`physician`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `medicalsystems`.`physician` ;
+DROP TABLE IF EXISTS `iste432a`.`physician` ;
 
-CREATE TABLE IF NOT EXISTS `medicalsystems`.`physician` (
+CREATE TABLE IF NOT EXISTS `iste432a`.`physician` (
   `PhysicianID` VARCHAR(15) NOT NULL,
   `Name` VARCHAR(125) NULL DEFAULT NULL,
   `Specialty` VARCHAR(125) NULL DEFAULT NULL,
@@ -129,12 +114,12 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`physician` (
   INDEX `UserID_idx` (`UserID` ASC),
   CONSTRAINT `Physician_InsuranceID`
     FOREIGN KEY (`InsuranceID`)
-    REFERENCES `medicalsystems`.`insurance` (`InsuranceID`)
+    REFERENCES `iste432a`.`insurance` (`InsuranceID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Physician_UserID`
     FOREIGN KEY (`UserID`)
-    REFERENCES `medicalsystems`.`user` (`UserID`)
+    REFERENCES `iste432a`.`user` (`UserID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -142,11 +127,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `medicalsystems`.`patient`
+-- Table `iste432a`.`patient`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `medicalsystems`.`patient` ;
+DROP TABLE IF EXISTS `iste432a`.`patient` ;
 
-CREATE TABLE IF NOT EXISTS `medicalsystems`.`patient` (
+CREATE TABLE IF NOT EXISTS `iste432a`.`patient` (
   `PatientID` VARCHAR(15) NOT NULL,
   `UserID` VARCHAR(50) NULL DEFAULT NULL,
   `Name` VARCHAR(75) NULL DEFAULT NULL,
@@ -165,56 +150,56 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`patient` (
   INDEX `Patient_ContactID` (`ContactID` ASC),
   CONSTRAINT `Patient_AddressID`
     FOREIGN KEY (`AddressID`)
-    REFERENCES `medicalsystems`.`address` (`AddressID`)
+    REFERENCES `iste432a`.`address` (`AddressID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Patient_ContactID`
     FOREIGN KEY (`ContactID`)
-    REFERENCES `medicalsystems`.`contact` (`ContactID`)
+    REFERENCES `iste432a`.`contact` (`ContactID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Patient_InsuranceID`
     FOREIGN KEY (`InsuranceID`)
-    REFERENCES `medicalsystems`.`insurance` (`InsuranceID`)
+    REFERENCES `iste432a`.`insurance` (`InsuranceID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Patient_PhysicianID`
     FOREIGN KEY (`PhysicianID`)
-    REFERENCES `medicalsystems`.`physician` (`PhysicianID`)
+    REFERENCES `iste432a`.`physician` (`PhysicianID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
--- Table `medicalsystems`.`addresspatient`
+-- Table `iste432a`.`addresspatient`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `medicalsystems`.`addresspatient` ;
+DROP TABLE IF EXISTS `iste432a`.`addresspatient` ;
 
-CREATE TABLE IF NOT EXISTS `medicalsystems`.`addresspatient` (
+CREATE TABLE IF NOT EXISTS `iste432a`.`addresspatient` (
   `PatientID` VARCHAR(15) NULL DEFAULT NULL,
   `AddressID` VARCHAR(10) NULL DEFAULT NULL,
   INDEX `PatientID` (`PatientID` ASC),
   INDEX `AddressID_idx` (`AddressID` ASC),
   CONSTRAINT `Address_AddressID`
     FOREIGN KEY (`AddressID`)
-    REFERENCES `medicalsystems`.`address` (`AddressID`)
+    REFERENCES `iste432a`.`address` (`AddressID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Address_PatientID`
     FOREIGN KEY (`PatientID`)
-    REFERENCES `medicalsystems`.`patient` (`PatientID`)
+    REFERENCES `iste432a`.`patient` (`PatientID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
--- Table `medicalsystems`.`appointment`
+-- Table `iste432a`.`appointment`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `medicalsystems`.`appointment` ;
+DROP TABLE IF EXISTS `iste432a`.`appointment` ;
 
-CREATE TABLE IF NOT EXISTS `medicalsystems`.`appointment` (
+CREATE TABLE IF NOT EXISTS `iste432a`.`appointment` (
   `AppointmentID` VARCHAR(10) NOT NULL,
   `PatientID` VARCHAR(15) NULL DEFAULT NULL,
   `PhysicianID` VARCHAR(15) NULL DEFAULT NULL,
@@ -231,33 +216,33 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`appointment` (
   INDEX `AddressID_idx` (`AddressID` ASC),
   CONSTRAINT `Appointment_AddressID`
     FOREIGN KEY (`AddressID`)
-    REFERENCES `medicalsystems`.`address` (`AddressID`)
+    REFERENCES `iste432a`.`address` (`AddressID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Appointment_InsuranceID`
     FOREIGN KEY (`InsuranceID`)
-    REFERENCES `medicalsystems`.`insurance` (`InsuranceID`)
+    REFERENCES `iste432a`.`insurance` (`InsuranceID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Appointment_PatientID`
     FOREIGN KEY (`PatientID`)
-    REFERENCES `medicalsystems`.`patient` (`PatientID`)
+    REFERENCES `iste432a`.`patient` (`PatientID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Appointment_PhysicianID`
     FOREIGN KEY (`PhysicianID`)
-    REFERENCES `medicalsystems`.`physician` (`PhysicianID`)
+    REFERENCES `iste432a`.`physician` (`PhysicianID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
--- Table `medicalsystems`.`medication`
+-- Table `iste432a`.`medication`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `medicalsystems`.`medication` ;
+DROP TABLE IF EXISTS `iste432a`.`medication` ;
 
-CREATE TABLE IF NOT EXISTS `medicalsystems`.`medication` (
+CREATE TABLE IF NOT EXISTS `iste432a`.`medication` (
   `MedicationID` INT(11) NOT NULL AUTO_INCREMENT,
   `TradeName` VARCHAR(256) NOT NULL,
   `GenericName` VARCHAR(256) NOT NULL,
@@ -270,11 +255,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `medicalsystems`.`messages`
+-- Table `iste432a`.`messages`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `medicalsystems`.`messages` ;
+DROP TABLE IF EXISTS `iste432a`.`messages` ;
 
-CREATE TABLE IF NOT EXISTS `medicalsystems`.`messages` (
+CREATE TABLE IF NOT EXISTS `iste432a`.`messages` (
   `MessageID` INT(11) NOT NULL AUTO_INCREMENT,
   `PatientID` VARCHAR(15) NULL DEFAULT NULL,
   `PhysicianID` VARCHAR(15) NULL DEFAULT NULL,
@@ -287,35 +272,35 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`messages` (
   INDEX `PhysicianID` (`PhysicianID` ASC),
   CONSTRAINT `Messages_PatientID`
     FOREIGN KEY (`PatientID`)
-    REFERENCES `medicalsystems`.`patient` (`PatientID`)
+    REFERENCES `iste432a`.`patient` (`PatientID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Messages_PhysicianID`
     FOREIGN KEY (`PhysicianID`)
-    REFERENCES `medicalsystems`.`physician` (`PhysicianID`)
+    REFERENCES `iste432a`.`physician` (`PhysicianID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
--- Table `medicalsystems`.`patientphysician`
+-- Table `iste432a`.`patientphysician`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `medicalsystems`.`patientphysician` ;
+DROP TABLE IF EXISTS `iste432a`.`patientphysician` ;
 
-CREATE TABLE IF NOT EXISTS `medicalsystems`.`patientphysician` (
+CREATE TABLE IF NOT EXISTS `iste432a`.`patientphysician` (
   `PatientID` VARCHAR(15) NOT NULL,
   `PhysicianID` VARCHAR(15) NOT NULL,
   INDEX `PatientID` (`PatientID` ASC),
   INDEX `PhysicianID` (`PhysicianID` ASC),
   CONSTRAINT `PatientPhysician_PatientID`
     FOREIGN KEY (`PatientID`)
-    REFERENCES `medicalsystems`.`patient` (`PatientID`)
+    REFERENCES `iste432a`.`patient` (`PatientID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `PatientPhysician_PhysicianID`
     FOREIGN KEY (`PhysicianID`)
-    REFERENCES `medicalsystems`.`physician` (`PhysicianID`)
+    REFERENCES `iste432a`.`physician` (`PhysicianID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -323,23 +308,23 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `medicalsystems`.`physicianpractice`
+-- Table `iste432a`.`physicianpractice`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `medicalsystems`.`physicianpractice` ;
+DROP TABLE IF EXISTS `iste432a`.`physicianpractice` ;
 
-CREATE TABLE IF NOT EXISTS `medicalsystems`.`physicianpractice` (
+CREATE TABLE IF NOT EXISTS `iste432a`.`physicianpractice` (
   `PracticeID` INT(11) NULL DEFAULT NULL,
   `PhysicianID` VARCHAR(15) NULL DEFAULT NULL,
   INDEX `PhysicianID_idx` (`PhysicianID` ASC),
   INDEX `PracticeID_idx` (`PracticeID` ASC),
   CONSTRAINT `PhysicianPractice_PhysicianID`
     FOREIGN KEY (`PhysicianID`)
-    REFERENCES `medicalsystems`.`physician` (`PhysicianID`)
+    REFERENCES `iste432a`.`physician` (`PhysicianID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `PhysicianPractice_PracticeID`
     FOREIGN KEY (`PracticeID`)
-    REFERENCES `medicalsystems`.`practice` (`PracticeID`)
+    REFERENCES `iste432a`.`practice` (`PracticeID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -347,11 +332,11 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `medicalsystems`.`prescription`
+-- Table `iste432a`.`prescription`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `medicalsystems`.`prescription` ;
+DROP TABLE IF EXISTS `iste432a`.`prescription` ;
 
-CREATE TABLE IF NOT EXISTS `medicalsystems`.`prescription` (
+CREATE TABLE IF NOT EXISTS `iste432a`.`prescription` (
   `PrescriptionID` INT(11) NOT NULL,
   `MedicationID` INT(11) NULL DEFAULT NULL,
   `PhysicianID` VARCHAR(15) NULL DEFAULT NULL,
@@ -367,17 +352,17 @@ CREATE TABLE IF NOT EXISTS `medicalsystems`.`prescription` (
   INDEX `MedicationID_idx` (`MedicationID` ASC),
   CONSTRAINT `Prescription_MedicationID`
     FOREIGN KEY (`MedicationID`)
-    REFERENCES `medicalsystems`.`medication` (`MedicationID`)
+    REFERENCES `iste432a`.`medication` (`MedicationID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Prescription_PatientID`
     FOREIGN KEY (`PatientID`)
-    REFERENCES `medicalsystems`.`patient` (`PatientID`)
+    REFERENCES `iste432a`.`patient` (`PatientID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `Prescription_PhysicianID`
     FOREIGN KEY (`PhysicianID`)
-    REFERENCES `medicalsystems`.`physician` (`PhysicianID`)
+    REFERENCES `iste432a`.`physician` (`PhysicianID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
