@@ -373,10 +373,10 @@ insert into `iste432a`.`medication` values('300','Tdap','Tetanus, Diphtheria, Pe
 -- Table `iste432a`.`messages`
 -- -----------------------------------------------------
 INSERT INTO `iste432a`.`messages` VALUES (1, 'PAT000000000001', 'PHY000000000001', 'Hello', 'This message is from the DB load', 'READ', '2016-03-03');
-INSERT INTO `iste432a`.`messages` VALUES (2, 'PAT000000000001', 'PHY000000000002', 'Test', 'This message is from the DB load', 'UNREAD', '2016-03-03');
+INSERT INTO `iste432a`.`messages` VALUES (2, 'PHY000000000002', 'PAT000000000001', 'Test', 'This message is from the DB load', 'UNREAD', '2016-03-03');
 INSERT INTO `iste432a`.`messages` VALUES (3, 'PAT000000000001', 'PHY000000000002', 'Messages are fun', 'This message is from the DB load', 'READ', '2015-12-12');
-INSERT INTO `iste432a`.`messages` VALUES (4, 'PAT000000000001', 'PHY000000000001', 'Hello', 'This message is from the DB load', 'READ', '2016-01-01');
-INSERT INTO `iste432a`.`messages` VALUES (5, 'PAT000000000001', 'PHY000000000002', 'Subject', 'This message is from the DB load', 'READ', '2016-02-02');
+INSERT INTO `iste432a`.`messages` VALUES (4, 'PHY000000000001', 'PAT000000000001', 'Hello', 'This message is from the DB load', 'READ', '2016-01-01');
+INSERT INTO `iste432a`.`messages` VALUES (5, 'PHY000000000002', 'PAT000000000001', 'Subject', 'This message is from the DB load', 'READ', '2016-02-02');
 INSERT INTO `iste432a`.`messages` VALUES (6, 'PAT000000000001', 'PHY000000000001', 'Load Message', 'This message is from the DB load', 'UNREAD', '2016-03-03');
 
 -- -----------------------------------------------------

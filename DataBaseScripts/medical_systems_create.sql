@@ -261,25 +261,13 @@ DROP TABLE IF EXISTS `iste432a`.`messages` ;
 
 CREATE TABLE IF NOT EXISTS `iste432a`.`messages` (
   `MessageID` INT(11) NOT NULL AUTO_INCREMENT,
-  `PatientID` VARCHAR(15) NULL DEFAULT NULL,
-  `PhysicianID` VARCHAR(15) NULL DEFAULT NULL,
+  `Sender` VARCHAR(15) NULL DEFAULT NULL,
+  `Recipient` VARCHAR(15) NULL DEFAULT NULL,
   `Subject` VARCHAR(100) NULL DEFAULT NULL,
   `Body` VARCHAR(1000) NULL DEFAULT NULL,
   `Status` VARCHAR(10) NULL DEFAULT NULL,
   `Date` DATETIME NULL DEFAULT NULL,
-  PRIMARY KEY (`MessageID`),
-  INDEX `PatientID` (`PatientID` ASC),
-  INDEX `PhysicianID` (`PhysicianID` ASC),
-  CONSTRAINT `Messages_PatientID`
-    FOREIGN KEY (`PatientID`)
-    REFERENCES `iste432a`.`patient` (`PatientID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `Messages_PhysicianID`
-    FOREIGN KEY (`PhysicianID`)
-    REFERENCES `iste432a`.`physician` (`PhysicianID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  PRIMARY KEY (`MessageID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
