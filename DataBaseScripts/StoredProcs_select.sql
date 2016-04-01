@@ -1,4 +1,4 @@
-DELIMETER ;
+DELIMITER ;
 USE iste432a;
 
 DROP PROCEDURE IF EXISTS select_appointment;
@@ -8,7 +8,7 @@ DROP PROCEDURE IF EXISTS select_address;
 DROP PROCEDURE IF EXISTS select_medication;
 
 
-DELIMETER //
+DELIMITER //
 
 
 CREATE PROCEDURE select_appointment(IN apptID VARCHAR(10))
@@ -37,4 +37,4 @@ BEGIN
 	SELECT * FROM Medication WHERE MedicationID = medID;
 END//
 
-DELIMETER ;
+DELIMITER ;

@@ -93,7 +93,7 @@ BEGIN
 END//
 
 
---insert physician
+-- insert physician
 CREATE PROCEDURE insert_physician(IN physID VARCHAR(15), IN phName VARCHAR(125), IN spec VARCHAR(125), IN newPat TINYINT(1), IN insID VARCHAR(10), usrID VARCHAR(50))
 BEGIN
 	INSERT INTO Physician (PhysicianID, Name, Specialty, NewPatient, InsuranceID, UserID)
