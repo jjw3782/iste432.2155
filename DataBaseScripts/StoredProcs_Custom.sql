@@ -6,7 +6,7 @@ DROP PROCEDURE IF EXISTS get_message_by_messageID;
 DROP PROCEDURE IF EXISTS get_message_where_subject_contains;
 DROP PROCEDURE IF EXISTS update_message_status;
 DROP PROCEDURE IF EXISTS get_all_messages_by_user;
-DROP PROCEDURE IF EXISTS get_all_messages_by_user;
+DROP PROCEDURE IF EXISTS get_users_where_username_like;
 
 DELIMITER \\
 
@@ -54,5 +54,16 @@ BEGIN
    
 END \\
 
+
+-- find users for jon
+CREATE PROCEDURE get_users_where_username_like(
+IN find varchar(50))
+BEGIN
+   SELECT PatientID as ID, Name FROM patient
+   WHERE Name LIKE CONCAT('%', find, '%')
+   UNION
+   SELECT PhysicianID as ID, Name FROM physician
+   WHERE Name LIKE CONCAT('%', find, '%');   
+END \\
 
 DELIMITER ;
