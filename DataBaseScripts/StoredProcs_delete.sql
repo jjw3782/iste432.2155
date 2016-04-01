@@ -19,16 +19,17 @@ DELIMITER //
 CREATE PROCEDURE delete_medication
 	(IN _medicationID int(11))
 	BEGIN
-		DELETE FROM Medication
+		DELETE FROM medication
 		WHERE MedicationID = _medicationID;
 	END //
 	
 -- contactinfo delete 
 CREATE PROCEDURE delete_contact_info
-	(IN _contactID int(11))
+	(IN _contactID int(11)
+
 	BEGIN
 		-- delte contact
-		DELETE FROM ContactInfo
+		DELETE FROM contactInfo
 		WHERE ContactID = _contactID;
 	END //	
 
@@ -38,7 +39,7 @@ CREATE PROCEDURE delete_address
 	(IN _addressID varchar(10))
 	BEGIN
 		-- delte addr
-		DELETE FROM Address
+		DELETE FROM address
 		WHERE AddressID = _addressID;
 	END //
 
@@ -48,7 +49,7 @@ CREATE PROCEDURE delete_user
 	(IN _userID int(11))
 	BEGIN
 		-- delte med
-		DELETE FROM `User`
+		DELETE FROM `user`
 		WHERE UserID = _userID;
 	END //
 
@@ -58,34 +59,34 @@ CREATE PROCEDURE delete_insurance
 	(IN _insuranceID int(11))
 	BEGIN
 		-- delte med
-		DELETE FROM Insurance
+		DELETE FROM insurance
 		WHERE InsuranceID = _insuranceID;
 	END //
 
    
 CREATE PROCEDURE delete_practice(IN prctID INT(11))
 BEGIN
-	DELETE FROM Practice WHERE PracticeID = prctID;
+	DELETE FROM practice WHERE PracticeID = prctID;
 END//
 
 CREATE PROCEDURE delete_patient(IN patID VARCHAR(15))
 BEGIN
-	DELETE FROM Patient WHERE PatientID = patID;
+	DELETE FROM patient WHERE PatientID = patID;
 END//
 
 CREATE PROCEDURE delete_physician(IN physID VARCHAR(15))
 BEGIN
-	DELETE FROM Physician WHERE PhysicianID = physID;
+	DELETE FROM physician WHERE PhysicianID = physID;
 END//
 
 CREATE PROCEDURE delete_physicianPatient(IN physID VARCHAR(15))
 BEGIN
-	DELETE FROM PatientPhysician WHERE PhysicianID = physID;
+	DELETE FROM patientphysician WHERE PhysicianID = physID;
 END//
 
 CREATE PROCEDURE delete_patientPhysician(IN patID VARCHAR(15))
 BEGIN
-	DELETE FROM PatientPhysician WHERE PatientID = patID;
+	DELETE FROM patientphysician WHERE PatientID = patID;
 END//
 
 DELIMITER ;
