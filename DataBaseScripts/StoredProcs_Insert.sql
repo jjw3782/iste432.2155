@@ -11,6 +11,7 @@ DROP PROCEDURE IF EXISTS insert_practice;
 DROP PROCEDURE IF EXISTS insert_patient;
 DROP PROCEDURE IF EXISTS insert_physician;
 DROP PROCEDURE IF EXISTS insert_patientPhysician;
+DROP PROCEDURE IF EXISTS insert_refillrequest;
 
 DELIMITER //
 -- medication Insert
@@ -106,4 +107,16 @@ BEGIN
 	INSERT INTO PatientPhysician (PatientID, PhysicianID) 
 	VALUES (patID, physID);
 END//
+
+-- refillrequest Insert
+CREATE PROCEDURE insert_refillrequest
+	(IN _prescriptionID int(11),
+	IN _dateRequested DATE,
+	IN _requestedByDate DATE,
+	IN _status varchar(10),
+	IN _comments varchar(255))
+	BEGIN
+		-- create 
+		INSERT INTO `refillrequest` VALUES (_prescriptionID,_dateRequested,_requestedByDate,_status,_comments);
+	END //
 DELIMITER ;

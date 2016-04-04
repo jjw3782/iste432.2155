@@ -356,6 +356,26 @@ CREATE TABLE IF NOT EXISTS `iste432a`.`prescription` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+-- -----------------------------------------------------
+-- Table `iste432a`.`refillrequest`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `iste432a`.`refillrequest` ;
+
+CREATE TABLE IF NOT EXISTS `iste432a`.`refillrequest` (
+  `PrescriptionID` INT(11) NOT NULL,
+  `DateCreated` DATE NOT NULL,
+  `ReqestedByDATE` DATE NULL DEFAULT NULL,
+  `Status` VARCHAR(10) NULL DEFAULT NULL,
+  `Comments` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`PrescriptionID`, `DateCreated),
+  CONSTRAINT `RefillRequest_PrescriptionID`
+    FOREIGN KEY (`PrescriptionID`)
+    REFERENCES `iste432a`.`prescription` (`PrescriptionID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

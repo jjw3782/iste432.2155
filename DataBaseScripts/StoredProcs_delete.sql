@@ -1,18 +1,21 @@
 DELIMITER ;
 USE iste432a;
-
--- medication delete 
+-- ted
 DROP PROCEDURE IF EXISTS delete_medication;
 DROP PROCEDURE IF EXISTS delete_contact_info;
 DROP PROCEDURE IF EXISTS delete_address;
 DROP PROCEDURE IF EXISTS delete_user;
 DROP PROCEDURE IF EXISTS delete_insurance;
 
+--gary
 DROP PROCEDURE IF EXISTS delete_practice;
 DROP PROCEDURE IF EXISTS delete_patient;
 DROP PROCEDURE IF EXISTS delete_physician;
 DROP PROCEDURE IF EXISTS delete_physicianPatient;
 DROP PROCEDURE IF EXISTS delete_patientPhysician;
+
+-- custom
+DROP PROCEDURE IF EXISTS delete_refillrequest;
 
 DELIMITER //
 -- medication delete
@@ -89,4 +92,8 @@ BEGIN
 	DELETE FROM patientphysician WHERE PatientID = patID;
 END//
 
+CREATE PROCEDURE delete_refillrequest(IN prescriptionID INT(11), IN dateCreated DATE)
+BEGIN
+	DELETE FROM refillrequest WHERE PrescriptionID = prescriptionID AND DateCreated = dateCreated;
+END//
 DELIMITER ;
